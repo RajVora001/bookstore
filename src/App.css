@@ -1,0 +1,26 @@
+a {
+  text-decoration: none;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.bg {
+  position: fixed;
+  bottom: 0;
+  z-index: -3;
+  height: 30%;
+}
+
+
+body::-webkit-scrollbar {
+  background-color: transparent;
+  width: 16px;
+
+}
+
+body::-webkit-scrollbar-thumb {
+  background:linear-gradient(red,white,black);
+  border-radius: 20px;
+}
