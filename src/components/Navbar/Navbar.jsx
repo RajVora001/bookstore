@@ -52,6 +52,14 @@ export default function NavBar({ role, isloggedIn, setLoggedIn }) {
                 </NavLink>
               </>
             )}
+             <NavLink to="/cart">
+              <Button 
+                variant="outlined" color="error" sx={{m:"1rem", backgroundColor: "white", "&:hover":{backgroundColor: "red", color: "white",}}}
+              >
+                Cart
+              </Button>
+            </NavLink>
+
             <NavLink to="/">
               <Button
                 variant="outlined" color="error" sx={{backgroundColor: "white", "&:hover":{backgroundColor: "red", color: "white",}}}

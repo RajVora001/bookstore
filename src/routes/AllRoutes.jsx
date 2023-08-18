@@ -13,6 +13,7 @@ import AddBook from "../pages/Manage/AddBook";
 import AdminManageBooks from "../pages/Admin/AdminManageBooks";
 import EditBook from "../pages/Admin/EditBook";
 import EditUser from "../pages/Admin/EditUser";
+import Cart from '../pages/cart/Cart'
 const AllRoutes = () => {
   const [role, setRole] = useState();
   const [isloggedIn, setLoggedIn] = useState(false);
@@ -23,17 +24,6 @@ const AllRoutes = () => {
       <BrowserRouter>
         <NavBar role={role} isloggedIn={isloggedIn} setLoggedIn={setLoggedIn} />
         <Routes>
-          {/* <Route
-            path="/home"
-            element={
-              <Home
-                isloggedIn={isloggedIn}
-                setLoggedIn={setLoggedIn}
-                setRole={setRole}
-                role={role}
-              />
-            }
-          /> */}
           <Route
             path="/"
             element={
@@ -63,6 +53,10 @@ const AllRoutes = () => {
           <Route
             path="/adminmanagebooks"
             element={<AdminManageBooks bookId={bookId} setBookId={setBookId} />}
+          />
+           <Route
+            path="/cart"
+            element={<Cart />}
           />
           <Route
             path="/editbook"

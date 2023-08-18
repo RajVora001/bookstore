@@ -1,22 +1,3 @@
-// import React from "react";
-// import NavBar from "../../components/Navbar/Navbar";
-// import axios from "axios";
-// import SearchBar from "../../components/Searchbar/SearchBar";
-// import BookContainer from "../../containers/BookContainer/BookContainer";
-// const Home = () => {
-//   // axios.get("http://localhost:8080/api/users/getusers").then((response) => {
-//   //   console.table(response.data.data);
-//   // });
-//   return (
-//     <div>
-//       <NavBar />
-//       <SearchBar />
-//       <BookContainer />
-//     </div>
-//   );
-// };
-
-// export default Home;
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -39,20 +20,20 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedValue, setSelectedValue] = useState(null); // Add this line
+  const [selectedValue, setSelectedValue] = useState(null);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://book-e-sell-node-api.vercel.app/api/book/all")
       .then((res) => {
         setData(res.data.result);
-        setFilteredData(res.data.result); // Add this line
+        setFilteredData(res.data.result); 
         setLoading(false);
       });
   }, []);
 
   useEffect(() => {
-    // Filter data based on search query
     const filtered = data.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -62,7 +43,6 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
   }, [data, searchQuery]);
 
   useEffect(() => {
-    // Update filtered data when selectedValue changes
     if (selectedValue) {
       setFilteredData([selectedValue]);
     } else {
@@ -70,9 +50,13 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
     }
   }, [selectedValue, data]);
 
+  const addToCart = (item) => {
+    setCart((prevCart) => [...prevCart, item]);
+  };
+
+
   return (
     <div>
-      {/* <NavBar /> */}
       {isloggedIn ? (
         <>
           <Autocomplete
@@ -128,7 +112,6 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
                     <CardMedia
                       component="div"
                       sx={{
-                        // 16:9
                         pt: "56.25%",
                         backgroundSize: "contain",
                       }}
@@ -142,7 +125,9 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
                       <Typography>{`₹${card.price}`}</Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small">Add to cart</Button>
+                      <Button size="small"
+                      onClick={()=> addToCart(card)}
+                      >Add to cart</Button>
                       <Button size="small">Edit</Button>
                     </CardActions>
                   </Card>
