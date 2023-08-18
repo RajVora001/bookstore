@@ -8,14 +8,16 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import NavBar from "../../components/Navbar/Navbar";
 import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Login from "../Login/Login";
+import { useCart } from '../../context/cartContext'
 
 const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
+
+
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,7 +30,7 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
       .get("https://book-e-sell-node-api.vercel.app/api/book/all")
       .then((res) => {
         setData(res.data.result);
-        setFilteredData(res.data.result); 
+        setFilteredData(res.data.result);
         setLoading(false);
       });
   }, []);
@@ -50,9 +52,10 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
     }
   }, [selectedValue, data]);
 
-  const addToCart = (item) => {
-    setCart((prevCart) => [...prevCart, item]);
-  };
+  // const addToCart = (item) => {
+  //   setCart((prevCart) => [...prevCart, item]);
+  // };
+  const { addToCart } = useCart()
 
 
   return (
@@ -126,7 +129,7 @@ const Home = ({ isloggedIn, setLoggedIn, setRole, role }) => {
                     </CardContent>
                     <CardActions>
                       <Button size="small"
-                      onClick={()=> addToCart(card)}
+                        onClick={() => addToCart(card)}
                       >Add to cart</Button>
                       <Button size="small">Edit</Button>
                     </CardActions>
